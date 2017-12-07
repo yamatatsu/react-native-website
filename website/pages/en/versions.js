@@ -32,18 +32,18 @@ class Versions extends React.Component {
             stable.
           </p>
           <p>
-            If you have an existing project that uses React Native, read the
-            release notes to learn about new features and fixes. You can follow{' '}
-            <a href={siteConfig.baseUrl + 'docs/upgrading.html'}>
-              our guide to upgrade your app to the latest version
-            </a>.
-          </p>
-          <p>
             You can view the docs for a particular version of React Native by
             clicking on the Documentation link next to the release in this page.
             You can come back to this page and switch the version of the docs
             you're reading at any time by clicking on the version number at the
             top of the page.
+          </p>
+          <p>
+            If you have an existing project that uses React Native, read the
+            release notes to learn about new features and fixes. You can follow{' '}
+            <a href={siteConfig.baseUrl + 'docs/upgrading.html'}>
+              our guide to upgrade your app to the latest version
+            </a>.
           </p>
           <h2>Latest versions</h2>
           <p>
@@ -67,79 +67,47 @@ class Versions extends React.Component {
                 </td>
                 <td />
               </tr>
-              <tr>
-                <th>{releaseCandidateVersion}-RC</th>
-                <td>
-                  <a href={siteConfig.baseUrl + 'docs/getting-started.html'}>
-                    Documentation
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href={
-                      'https://github.com/facebook/react-native/releases/tag/v' +
-                      releaseCandidateVersion +
-                      '.0-rc.0'
-                    }>
-                    Release Notes
-                  </a>
-                </td>
-              </tr>
+              {releaseCandidateVersion && (
+                <tr>
+                  <th>{releaseCandidateVersion}-RC</th>
+                  <td>
+                    <a href={siteConfig.baseUrl + 'docs/getting-started.html'}>
+                      Documentation
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href={
+                        'https://github.com/facebook/react-native/releases/tag/v' +
+                        releaseCandidateVersion +
+                        '.0-rc.0'
+                      }>
+                      Release Notes
+                    </a>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
-          <h2>Stable version</h2>
-          <p>
-            This is the version that is configured automatically when you create
-            a new project using <code>react-native init</code>. The stable
-            version is released roughly a month after entering release candidate
-            status.
-          </p>
-          <table className="versions">
-            <tbody>
-              <tr>
-                <th>{stableVersion}</th>
-                <td>
-                  <a
-                    href={
-                      siteConfig.baseUrl +
-                      'docs/' +
-                      stableVersion +
-                      '/getting-started.html'
-                    }>
-                    Documentation
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href={
-                      'https://github.com/facebook/react-native/releases/tag/v' +
-                      stableVersion +
-                      '.0'
-                    }>
-                    Release Notes
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <h2>Past versions</h2>
-          <p>
-            You can find past versions of React Native on GitHub. The release
-            notes can be useful if you would like to learn when a specific
-            feature or fix was released.
-          </p>
-          <table className="versions">
-            <tbody>
-              {versions.slice(1).map(function(version) {
-                return (
-                  <tr key={'version_' + version}>
-                    <th>{version}</th>
+          {stableVersion && (
+            <div>
+              <h2>Stable version</h2>
+              <p>
+                This is the version that is configured automatically when you
+                create a new project using <code>react-native init</code>. The
+                stable version is released roughly a month after entering
+                release candidate status.
+              </p>
+              <table className="versions">
+                <tbody>
+                  <tr>
+                    <th>{stableVersion}</th>
                     <td>
                       <a
                         href={
                           siteConfig.baseUrl +
                           'docs/' +
-                          version +
+                          stableVersion +
                           '/getting-started.html'
                         }>
                         Documentation
@@ -149,17 +117,61 @@ class Versions extends React.Component {
                       <a
                         href={
                           'https://github.com/facebook/react-native/releases/tag/v' +
-                          version +
+                          stableVersion +
                           '.0'
                         }>
                         Release Notes
                       </a>
                     </td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {versions &&
+            versions.length > 0 && (
+              <div>
+                <h2>Past versions</h2>
+                <p>
+                  You can find past versions of React Native on GitHub. The
+                  release notes can be useful if you would like to learn when a
+                  specific feature or fix was released.
+                </p>
+                <table className="versions">
+                  <tbody>
+                    {versions.slice(1).map(function(version) {
+                      return (
+                        <tr key={'version_' + version}>
+                          <th>{version}</th>
+                          <td>
+                            <a
+                              href={
+                                siteConfig.baseUrl +
+                                'docs/' +
+                                version +
+                                '/getting-started.html'
+                              }>
+                              Documentation
+                            </a>
+                          </td>
+                          <td>
+                            <a
+                              href={
+                                'https://github.com/facebook/react-native/releases/tag/v' +
+                                version +
+                                '.0'
+                              }>
+                              Release Notes
+                            </a>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
         </Container>
       </div>
     );
